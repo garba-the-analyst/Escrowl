@@ -1,0 +1,31 @@
+[package]
+name = "escrowl-litesvm"
+version = "0.1.0"
+edition = "2021"
+
+# Standalone workspace (excluded from the root one): its dependency tree
+# (LiteSVM / Solana 4.x-era crates) is intentionally isolated from the
+# program's era-pinned lockfile. Versions mirror litesvm 0.16's own
+# requirements so every address/pubkey type unifies to a single instance.
+# Run with: RUSTUP_TOOLCHAIN=stable cargo test -p escrowl-litesvm
+[workspace]
+
+[dependencies]
+litesvm = "0.16"
+borsh = "1"
+serde_json = "1"
+solana-address = "2"
+solana-clock = "3"
+solana-hash = "4"
+solana-instruction = "3"
+solana-instruction-error = "2"
+solana-keypair = "3"
+solana-message = "4"
+solana-signature = "3"
+solana-signer = "3"
+solana-system-interface = "3"
+solana-transaction = "4"
+solana-transaction-error = "3"
+
+[lints.rust]
+unsafe_code = "forbid"

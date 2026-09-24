@@ -1,0 +1,3451 @@
+(global) garba-the-analyst@GarbaTheAnalyst-PC:~/Desktop/Projects/Escrowl$ # 0. Toolchains (one-time): Solana 2.2.14 + Anchor 0.31.2 on PATH
+export PATH="$HOME/.local/bin:$HOME/.local/share/solana/bin:$HOME/.cargo/bin:$PATH"
+
+# 1. Deps
+npm install --no-audit --no-fund && cd app && npm install && cd ..
+
+# 2. Build + full verification
+anchor build
+cargo test -p escrowl --locked
+cargo clippy --all-targets -- -D warnings
+./node_modules/.bin/tsc --noEmit -p tsconfig.json
+anchor test --provider.cluster localnet --skip-build
+
+# 3. Deploy + seed (needs ~2.3 devnet SOL on ANCHOR_WALLET)
+export ANCHOR_PROVIDER_URL=https://api.devnet.solana.com ANCHOR_WALLET=$HOME/.config/solana/id.json
+anchor deploy --provider.cluster devnet && yarn seed-devnet
+
+up to date in 811ms
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+npm error
+npm error While resolving: escrowl-app@0.1.0
+npm error Found: react@19.3.0
+npm error node_modules/react
+npm error   react@"^19.0.0" from the root project
+npm error
+npm error Could not resolve dependency:
+npm error peer react@"^18.2.0 || 19.0.0-rc-65a56d0e-20241020" from next@15.0.0
+npm error node_modules/next
+npm error   next@"15.0.0" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error /home/garba-the-analyst/.npm/_logs/2026-09-24T10_34_28_691Z-eresolve-report.txt
+npm error A complete log of this run can be found in: /home/garba-the-analyst/.npm/_logs/2026-09-24T10_34_28_691Z-debug-0.log
+Error: Function _ZN4core5slice4sort6stable14driftsort_main17hf72b0e6e89eb25d6E Stack offset of 4104 exceeded max offset of 4096 by 8 bytes, please minimize large stack variables. Estimated function frame size: 4160 bytes. Exceeding the maximum stack offset may cause undefined behavior during execution.
+
+warning: unexpected `cfg` condition value: `custom-heap`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `custom-heap` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+   = note: this warning originates in the macro `$crate::custom_heap_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `custom-panic`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `custom-panic` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the macro `$crate::custom_panic_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = help: consider adding `anchor-debug` as a feature in `Cargo.toml`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a module
+  --> programs/escrowl/src/lib.rs:25:1
+   |
+25 | pub mod escrowl {
+   | ^^^^^^^^^^^^^^^
+   |
+   = note: requested on the command line with `-W missing-docs`
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/errors.rs:6:1
+  |
+6 | pub enum EscrowError {
+  | ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/errors.rs:8:5
+  |
+8 |     NotImplemented,
+  |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:11:5
+   |
+11 |     InvalidMilestoneCount,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:13:5
+   |
+13 |     ZeroMilestoneAmount,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:15:5
+   |
+15 |     TotalMismatch,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:17:5
+   |
+17 |     MathOverflow,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:19:5
+   |
+19 |     DuplicateRole,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:21:5
+   |
+21 |     MintNotAllowed,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:23:5
+   |
+23 |     Token2022Rejected,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:25:5
+   |
+25 |     InvalidMilestoneIndex,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:27:5
+   |
+27 |     OutOfOrderSubmit,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:29:5
+   |
+29 |     InvalidMilestoneState,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:31:5
+   |
+31 |     InvalidEscrowState,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:33:5
+   |
+33 |     WindowNotElapsed,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:35:5
+   |
+35 |     WindowElapsed,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:37:5
+   |
+37 |     InvalidSplitSum,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:39:5
+   |
+39 |     FeeTooHigh,
+   |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:41:5
+   |
+41 |     Paused,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:43:5
+   |
+43 |     CancelNotAllowed,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:45:5
+   |
+45 |     NotAllTerminal,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:47:5
+   |
+47 |     VaultInvariantViolated,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:49:5
+   |
+49 |     Unauthorized,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:51:5
+   |
+51 |     InvalidReviewWindow,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:53:5
+   |
+53 |     AllowlistUpdateInvalid,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/events.rs:6:1
+  |
+6 | pub struct ConfigInitialized {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:7:5
+  |
+7 |     pub admin: Pubkey,
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:8:5
+  |
+8 |     pub treasury: Pubkey,
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:9:5
+  |
+9 |     pub fee_bps: u16,
+  |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:13:1
+   |
+13 | pub struct PausedUpdated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:14:5
+   |
+14 |     pub paused: bool,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:18:1
+   |
+18 | pub struct ConfigUpdated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:19:5
+   |
+19 |     pub fee_bps: u16,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:20:5
+   |
+20 |     pub treasury: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:21:5
+   |
+21 |     pub allowlist_len: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:25:1
+   |
+25 | pub struct EscrowCreated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:26:5
+   |
+26 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:27:5
+   |
+27 |     pub buyer: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:28:5
+   |
+28 |     pub seller: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:29:5
+   |
+29 |     pub arbiter: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:30:5
+   |
+30 |     pub total_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:31:5
+   |
+31 |     pub milestone_count: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:35:1
+   |
+35 | pub struct EscrowFunded {
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:36:5
+   |
+36 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:37:5
+   |
+37 |     pub amount: u64,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:41:1
+   |
+41 | pub struct MilestoneSubmitted {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:42:5
+   |
+42 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:43:5
+   |
+43 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:44:5
+   |
+44 |     pub evidence_hash: [u8; 32],
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:48:1
+   |
+48 | pub struct MilestoneReleased {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:49:5
+   |
+49 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:50:5
+   |
+50 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:51:5
+   |
+51 |     pub seller_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:52:5
+   |
+52 |     pub fee_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:53:5
+   |
+53 |     pub reason: ReleaseReason,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:57:1
+   |
+57 | pub struct DisputeRaised {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:58:5
+   |
+58 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:59:5
+   |
+59 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:60:5
+   |
+60 |     pub raised_by: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:64:1
+   |
+64 | pub struct DisputeResolved {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:65:5
+   |
+65 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:66:5
+   |
+66 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:67:5
+   |
+67 |     pub seller_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:68:5
+   |
+68 |     pub buyer_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:72:1
+   |
+72 | pub struct EscrowCancelled {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:73:5
+   |
+73 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:77:1
+   |
+77 | pub struct EscrowClosed {
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:78:5
+   |
+78 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+  --> programs/escrowl/src/events.rs:82:1
+   |
+82 | pub enum ReleaseReason {
+   | ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/events.rs:83:5
+   |
+83 |     Approved,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/events.rs:84:5
+   |
+84 |     Timeout,
+   |     ^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/approve_milestone.rs:12:1
+   |
+12 | pub struct ApproveMilestone<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:14:5
+   |
+14 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:34:5
+   |
+34 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:38:5
+   |
+38 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:39:5
+   |
+39 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/approve_milestone.rs:42:1
+   |
+42 | pub fn handler(ctx: Context<ApproveMilestone>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:11:1
+   |
+11 | pub struct CancelEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:15:5
+   |
+15 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:21:5
+   |
+21 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:27:5
+   |
+27 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:30:5
+   |
+30 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:33:1
+   |
+33 | pub fn handler(ctx: Context<CancelEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:12:1
+   |
+12 | pub struct ClaimAfterTimeout<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:14:5
+   |
+14 |     pub seller: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:34:5
+   |
+34 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:38:5
+   |
+38 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:39:5
+   |
+39 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:42:1
+   |
+42 | pub fn handler(ctx: Context<ClaimAfterTimeout>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/close_escrow.rs:11:1
+   |
+11 | pub struct CloseEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:20:5
+   |
+20 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:26:5
+   |
+26 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:27:5
+   |
+27 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/close_escrow.rs:30:1
+   |
+30 | pub fn handler(ctx: Context<CloseEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/create_escrow.rs:15:1
+   |
+15 | pub struct CreateEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:17:5
+   |
+17 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:27:5
+   |
+27 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:35:5
+   |
+35 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:44:5
+   |
+44 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:45:5
+   |
+45 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:46:5
+   |
+46 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:47:5
+   |
+47 |     pub rent: Sysvar<'info, Rent>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/create_escrow.rs:50:1
+   |
+50 | / pub fn handler(
+51 | |     ctx: Context<CreateEscrow>,
+52 | |     escrow_id: u64,
+53 | |     milestone_amounts: Vec<u64>,
+54 | |     review_window_secs: i64,
+55 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/fund_escrow.rs:11:1
+   |
+11 | pub struct FundEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:20:5
+   |
+20 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:26:5
+   |
+26 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:32:5
+   |
+32 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:37:5
+   |
+37 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:38:5
+   |
+38 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/fund_escrow.rs:41:1
+   |
+41 | pub fn handler(ctx: Context<FundEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/initialize_config.rs:10:1
+   |
+10 | pub struct InitializeConfig<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/initialize_config.rs:24:5
+   |
+24 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/initialize_config.rs:25:5
+   |
+25 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/initialize_config.rs:28:1
+   |
+28 | pub fn handler(ctx: Context<InitializeConfig>, fee_bps: u16, allowed_mints: Vec<Pubkey>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/raise_dispute.rs:9:1
+  |
+9 | pub struct RaiseDispute<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/raise_dispute.rs:11:5
+   |
+11 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/raise_dispute.rs:13:5
+   |
+13 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/raise_dispute.rs:16:1
+   |
+16 | pub fn handler(ctx: Context<RaiseDispute>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:12:1
+   |
+12 | pub struct ResolveDispute<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:14:5
+   |
+14 |     pub arbiter: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:34:5
+   |
+34 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:40:5
+   |
+40 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:44:5
+   |
+44 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:45:5
+   |
+45 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:48:1
+   |
+48 | / pub fn handler(
+49 | |     ctx: Context<ResolveDispute>,
+50 | |     index: u8,
+51 | |     seller_amount: u64,
+52 | |     buyer_amount: u64,
+53 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/set_paused.rs:9:1
+  |
+9 | pub struct SetPaused<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/set_paused.rs:10:5
+   |
+10 |     pub admin: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/set_paused.rs:17:5
+   |
+17 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/set_paused.rs:20:1
+   |
+20 | pub fn handler(ctx: Context<SetPaused>, paused: bool) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/submit_milestone.rs:9:1
+  |
+9 | pub struct SubmitMilestone<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/submit_milestone.rs:11:5
+   |
+11 |     pub seller: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/submit_milestone.rs:13:5
+   |
+13 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/submit_milestone.rs:16:1
+   |
+16 | pub fn handler(ctx: Context<SubmitMilestone>, index: u8, evidence_hash: [u8; 32]) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/update_config.rs:13:1
+   |
+13 | pub struct UpdateConfig<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:15:5
+   |
+15 |     pub admin: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:25:5
+   |
+25 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:26:5
+   |
+26 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/update_config.rs:29:1
+   |
+29 | / pub fn handler(
+30 | |     ctx: Context<UpdateConfig>,
+31 | |     new_fee_bps: Option<u16>,
+32 | |     new_treasury: Option<Pubkey>,
+33 | |     add_mint: Option<Pubkey>,
+34 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for an associated function
+  --> programs/escrowl/src/state/config.rs:25:5
+   |
+25 |     pub fn space(num_mints: usize) -> usize {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+  --> programs/escrowl/src/state/config.rs:29:5
+   |
+29 |     pub fn max_space() -> usize {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/state/escrow.rs:8:1
+  |
+8 | pub enum EscrowStatus {
+  | ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/escrow.rs:9:5
+  |
+9 |     Created,
+  |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:10:5
+   |
+10 |     Funded,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:11:5
+   |
+11 |     Completed,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:12:5
+   |
+12 |     Cancelled,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:25:5
+   |
+25 |     pub buyer: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:26:5
+   |
+26 |     pub seller: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:27:5
+   |
+27 |     pub arbiter: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:28:5
+   |
+28 |     pub mint: Pubkey,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:29:5
+   |
+29 |     pub vault: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:30:5
+   |
+30 |     pub escrow_id: u64,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:31:5
+   |
+31 |     pub milestone_count: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:33:5
+   |
+33 |     pub milestones: Vec<Milestone>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:34:5
+   |
+34 |     pub total_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:35:5
+   |
+35 |     pub released_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:36:5
+   |
+36 |     pub refunded_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:39:5
+   |
+39 |     pub review_window_secs: i64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:40:5
+   |
+40 |     pub status: EscrowStatus,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:41:5
+   |
+41 |     pub created_at: i64,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:42:5
+   |
+42 |     pub bump: u8,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:43:5
+   |
+43 |     pub vault_bump: u8,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> programs/escrowl/src/state/escrow.rs:55:5
+   |
+55 |     pub fn all_terminal(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> programs/escrowl/src/state/escrow.rs:59:5
+   |
+59 |     pub fn any_submitted_or_beyond(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/state/milestone.rs:6:1
+  |
+6 | pub enum MilestoneStatus {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:7:5
+  |
+7 |     Pending,
+  |     ^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:8:5
+  |
+8 |     Submitted,
+  |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:9:5
+  |
+9 |     Released,
+  |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:10:5
+   |
+10 |     Disputed,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:11:5
+   |
+11 |     Resolved,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:12:5
+   |
+12 |     Refunded,
+   |     ^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:24:5
+   |
+24 |     pub amount: u64,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:25:5
+   |
+25 |     pub status: MilestoneStatus,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:26:5
+   |
+26 |     pub submitted_at: i64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:27:5
+   |
+27 |     pub evidence_hash: [u8; 32],
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `escrowl` (lib) generated 233 warnings (5 duplicates)
+    Finished `release` profile [optimized] target(s) in 0.78s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s
+     Running unittests src/lib.rs (/home/garba-the-analyst/Desktop/Projects/Escrowl/target/debug/build/escrowl/621aa6b1e1afa76b/out/escrowl-621aa6b1e1afa76b)
+     Running tests/model_fuzz.rs (/home/garba-the-analyst/Desktop/Projects/Escrowl/target/debug/build/escrowl/3acf21ac9bacbaab/out/model_fuzz-3acf21ac9bacbaab)
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling cfg-if v1.0.5
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling serde v1.0.229
+   Compiling syn v3.0.6
+   Compiling syn v2.0.119
+   Compiling block-buffer v0.10.4
+   Compiling cpufeatures v0.2.17
+   Compiling getrandom v0.2.17
+   Compiling rand_core v0.6.4
+   Compiling crypto-common v0.1.7
+   Compiling subtle v2.6.1
+   Compiling syn v1.0.109
+   Compiling zerocopy v0.8.57
+   Compiling hashbrown v0.15.5
+   Compiling equivalent v1.0.2
+   Compiling indexmap v2.9.0
+   Compiling serde_derive v1.0.229
+   Compiling digest v0.10.7
+   Compiling toml_datetime v0.6.11
+   Compiling winnow v0.5.40
+   Compiling autocfg v1.5.1
+   Compiling cfg_aliases v0.2.2
+   Compiling borsh v1.5.5
+   Compiling once_cell v1.21.4
+   Compiling num-traits v0.2.19
+   Compiling bytemuck_derive v1.12.1
+   Compiling five8_core v0.1.2
+   Compiling zeroize_derive v1.4.2
+   Compiling ahash v0.8.12
+   Compiling toml_edit v0.21.1
+   Compiling semver v1.0.28
+   Compiling solana-sanitize v2.2.1
+   Compiling rustc_version v0.4.1
+   Compiling zeroize v1.8.1
+   Compiling five8 v0.2.1
+   Compiling toml v0.5.11
+   Compiling bytemuck v1.25.2
+   Compiling borsh-derive-internal v0.10.4
+   Compiling solana-atomic-u64 v2.2.1
+   Compiling curve25519-dalek v4.1.3
+   Compiling borsh-schema-derive-internal v0.10.4
+   Compiling proc-macro-crate v3.1.0
+   Compiling proc-macro-crate v0.1.5
+   Compiling hashbrown v0.13.2
+   Compiling borsh-derive v0.10.4
+   Compiling sha2 v0.10.9
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling bs58 v0.5.1
+   Compiling borsh v0.10.4
+   Compiling solana-decode-error v2.3.0
+   Compiling five8_const v0.1.4
+   Compiling borsh-derive v1.5.7
+   Compiling bincode v1.3.3
+   Compiling zmij v1.0.23
+   Compiling solana-msg v2.2.1
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling thiserror v1.0.69
+   Compiling thiserror-impl v1.0.69
+   Compiling ppv-lite86 v0.2.21
+   Compiling lazy_static v1.5.0
+   Compiling solana-sdk-macro v2.2.1
+   Compiling solana-hash v2.3.0
+   Compiling opaque-debug v0.3.1
+   Compiling solana-sha256-hasher v2.3.0
+   Compiling thiserror v2.0.21
+   Compiling solana-pubkey v2.2.1
+   Compiling thiserror-impl v2.0.21
+   Compiling solana-program-memory v2.3.1
+   Compiling solana-instruction v2.2.1
+   Compiling solana-sdk-ids v2.2.1
+   Compiling keccak v0.1.6
+   Compiling solana-sysvar-id v2.2.1
+   Compiling crunchy v0.2.4
+   Compiling solana-program-error v2.2.2
+   Compiling solana-account-info v2.3.0
+   Compiling solana-transaction-error v2.2.1
+   Compiling sha3 v0.10.9
+   Compiling solana-system-interface v1.0.0
+   Compiling rand_chacha v0.3.1
+   Compiling num-derive v0.4.2
+   Compiling base64 v0.22.1
+   Compiling rand v0.8.8
+   Compiling solana-clock v2.2.3
+   Compiling inout v0.1.4
+   Compiling digest v0.9.0
+   Compiling find-msvc-tools v0.1.13
+   Compiling shlex v2.0.1
+   Compiling getrandom v0.1.16
+   Compiling libsecp256k1-core v0.2.2
+   Compiling cc v1.4.7
+   Compiling cipher v0.4.4
+   Compiling percent-encoding v2.3.2
+   Compiling arrayref v0.3.9
+   Compiling fnv v1.0.7
+   Compiling qstring v0.7.2
+   Compiling uriparse v0.6.4
+   Compiling universal-hash v0.5.1
+   Compiling derivation-path v0.2.0
+   Compiling feature-probe v0.1.1
+   Compiling bv v0.11.1
+   Compiling polyval v0.6.2
+   Compiling rand_core v0.5.1
+   Compiling solana-derivation-path v2.2.1
+   Compiling libsecp256k1-gen-ecmult v0.2.1
+   Compiling libsecp256k1-gen-genmult v0.2.1
+   Compiling ctr v0.9.2
+   Compiling aes v0.8.4
+   Compiling solana-signature v2.2.1
+   Compiling blake3 v1.5.5
+   Compiling pbkdf2 v0.11.0
+   Compiling hmac v0.12.1
+   Compiling aead v0.5.2
+   Compiling arrayvec v0.7.8
+   Compiling byteorder v1.5.0
+   Compiling either v1.18.0
+   Compiling constant_time_eq v0.3.1
+   Compiling log v0.4.34
+   Compiling solana-program-option v2.2.1
+   Compiling anyhow v1.0.104
+   Compiling itertools v0.12.1
+   Compiling solana-fee-calculator v2.2.1
+   Compiling merlin v3.0.0
+   Compiling aes-gcm-siv v0.11.1
+   Compiling solana-seed-phrase v2.2.1
+   Compiling solana-signer v2.2.1
+   Compiling libsecp256k1 v0.6.0
+   Compiling solana-seed-derivable v2.2.1
+   Compiling rand_chacha v0.2.2
+   Compiling solana-serialize-utils v2.2.1
+   Compiling solana-slot-hashes v2.2.1
+   Compiling solana-rent v2.2.1
+   Compiling solana-short-vec v2.2.1
+   Compiling serde_bytes v0.11.19
+   Compiling block-buffer v0.9.0
+   Compiling sha2 v0.9.9
+   Compiling solana-zk-sdk v2.2.2
+   Compiling rand v0.7.3
+   Compiling solana-program-entrypoint v2.3.0
+   Compiling solana-cpi v2.2.1
+   Compiling solana-bincode v2.2.1
+   Compiling num-integer v0.1.47
+   Compiling memoffset v0.9.1
+   Compiling bitflags v2.13.2
+   Compiling base64 v0.12.3
+   Compiling unicode-segmentation v1.12.0
+   Compiling solana-instructions-sysvar v2.2.2
+   Compiling heck v0.3.3
+   Compiling num-bigint v0.4.8
+   Compiling solana-message v2.4.0
+   Compiling solana-stake-interface v1.2.1
+   Compiling solana-slot-history v2.2.1
+   Compiling solana-address-lookup-table-interface v2.2.2
+   Compiling solana-nonce v2.2.1
+   Compiling solana-account v2.2.1
+   Compiling solana-keccak-hasher v2.2.1
+   Compiling solana-last-restart-slot v2.2.1
+   Compiling solana-epoch-rewards v2.2.1
+   Compiling solana-epoch-schedule v2.2.1
+   Compiling solana-borsh v2.2.1
+   Compiling solana-serde-varint v2.2.2
+   Compiling solana-example-mocks v2.2.1
+   Compiling solana-sysvar v2.2.1
+   Compiling solana-vote-interface v2.2.1
+   Compiling solana-feature-gate-interface v2.2.2
+   Compiling solana-secp256k1-recover v2.2.1
+   Compiling solana-big-mod-exp v2.2.1
+   Compiling solana-loader-v3-interface v3.0.0
+   Compiling solana-loader-v2-interface v2.2.1
+   Compiling solana-loader-v4-interface v2.2.1
+   Compiling solana-blake3-hasher v2.2.1
+   Compiling solana-program-pack v2.2.1
+   Compiling solana-stable-layout v2.2.1
+   Compiling solana-native-token v2.3.0
+   Compiling spl-pod v0.5.1
+   Compiling anchor-syn v0.31.2
+   Compiling spl-discriminator-syn v0.2.1
+   Compiling spl-discriminator-derive v0.2.0
+   Compiling rustversion v1.0.23
+   Compiling spl-discriminator v0.4.1
+   Compiling solana-curve25519 v2.3.13
+   Compiling spl-type-length-value v0.7.0
+   Compiling spl-program-error-derive v0.4.1
+   Compiling solana-program v2.2.1
+   Compiling num_enum_derive v0.7.6
+   Compiling anchor-lang-idl-spec v0.1.0
+   Compiling spl-program-error v0.6.0
+   Compiling spl-tlv-account-resolution v0.9.0
+   Compiling spl-token-confidential-transfer-proof-extraction v0.2.1
+   Compiling spl-transfer-hook-interface v0.9.0
+   Compiling spl-elgamal-registry v0.1.1
+   Compiling num_enum v0.7.6
+   Compiling spl-token v7.0.0
+   Compiling anchor-lang-idl v0.1.4
+   Compiling spl-token-metadata-interface v0.6.0
+   Compiling spl-token-group-interface v0.5.0
+   Compiling spl-token-confidential-transfer-ciphertext-arithmetic v0.2.1
+   Compiling spl-token-confidential-transfer-proof-generation v0.2.0
+   Compiling spl-memo v6.0.0
+   Compiling solana-security-txt v1.1.3
+   Compiling anchor-attribute-error v0.31.2
+   Compiling anchor-derive-serde v0.31.2
+   Compiling spl-token-2022 v6.0.0
+   Compiling anchor-attribute-event v0.31.2
+   Compiling anchor-attribute-access-control v0.31.2
+   Compiling anchor-derive-accounts v0.31.2
+   Compiling anchor-attribute-constant v0.31.2
+   Compiling anchor-attribute-account v0.31.2
+   Compiling anchor-attribute-program v0.31.2
+   Compiling spl-associated-token-account-client v2.0.0
+   Compiling anchor-derive-space v0.31.2
+   Compiling base64 v0.21.7
+   Compiling anchor-lang v0.31.1
+   Compiling spl-associated-token-account v6.0.0
+   Compiling anchor-spl v0.31.1
+   Compiling escrowl v0.1.0 (/home/garba-the-analyst/Desktop/Projects/Escrowl/programs/escrowl)
+warning: unexpected `cfg` condition value: `custom-heap`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `$crate::custom_heap_default` crate for guidance on how handle this unexpected cfg
+   = help: the macro `$crate::custom_heap_default` may come from an old version of the `solana_program_entrypoint` crate, try updating your dependency with `cargo update -p solana_program_entrypoint`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+   = note: this warning originates in the macro `$crate::custom_heap_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `solana`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `target_os` are: `aix`, `amdhsa`, `android`, `cuda`, `cygwin`, `dragonfly`, `emscripten`, `espidf`, `freebsd`, `fuchsia`, `haiku`, `hermit`, `horizon`, `hurd`, `illumos`, `ios`, `l4re`, `linux`, `lynxos178`, `macos`, `netbsd`, `none`, `nto`, `nuttx`, `openbsd`, `psp`, `psx`, `redox`, `rtems`, `solaris`, `solid_asp3`, `teeos`, `trusty`, `tvos`, and `uefi` and 9 more
+   = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `$crate::custom_heap_default` crate for guidance on how handle this unexpected cfg
+   = help: the macro `$crate::custom_heap_default` may come from an old version of the `solana_program_entrypoint` crate, try updating your dependency with `cargo update -p solana_program_entrypoint`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the macro `$crate::custom_heap_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `custom-panic`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `$crate::custom_panic_default` crate for guidance on how handle this unexpected cfg
+   = help: the macro `$crate::custom_panic_default` may come from an old version of the `solana_program_entrypoint` crate, try updating your dependency with `cargo update -p solana_program_entrypoint`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the macro `$crate::custom_panic_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `solana`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `target_os` are: `aix`, `amdhsa`, `android`, `cuda`, `cygwin`, `dragonfly`, `emscripten`, `espidf`, `freebsd`, `fuchsia`, `haiku`, `hermit`, `horizon`, `hurd`, `illumos`, `ios`, `l4re`, `linux`, `lynxos178`, `macos`, `netbsd`, `none`, `nto`, `nuttx`, `openbsd`, `psp`, `psx`, `redox`, `rtems`, `solaris`, `solid_asp3`, `teeos`, `trusty`, `tvos`, and `uefi` and 9 more
+   = note: using a cfg inside a macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `$crate::custom_panic_default` crate for guidance on how handle this unexpected cfg
+   = help: the macro `$crate::custom_panic_default` may come from an old version of the `solana_program_entrypoint` crate, try updating your dependency with `cargo update -p solana_program_entrypoint`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the macro `$crate::custom_panic_default` which comes from the expansion of the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+  = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+  = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+  = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+  = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+  = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+  = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+  = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a attribute macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `program` crate for guidance on how handle this unexpected cfg
+   = help: the attribute macro `program` may come from an old version of the `anchor_attribute_program` crate, try updating your dependency with `cargo update -p anchor_attribute_program`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: unexpected `cfg` condition value: `anchor-debug`
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: expected values for `feature` are: `anchor-test`, `cpi`, `default`, `idl-build`, `no-entrypoint`, `no-idl`, and `no-log-ix-name`
+   = note: using a cfg inside a derive macro will use the cfgs from the destination crate and not the ones from the defining crate
+   = help: try referring to `Accounts` crate for guidance on how handle this unexpected cfg
+   = help: the derive macro `Accounts` may come from an old version of the `anchor_derive_accounts` crate, try updating your dependency with `cargo update -p anchor_derive_accounts`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: use of deprecated method `anchor_lang::prelude::AccountInfo::<'a>::realloc`: Use AccountInfo::resize() instead
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: `#[warn(deprecated)]` on by default
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a module
+  --> programs/escrowl/src/lib.rs:25:1
+   |
+25 | pub mod escrowl {
+   | ^^^^^^^^^^^^^^^
+   |
+   = note: requested on the command line with `-W missing-docs`
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/errors.rs:6:1
+  |
+6 | pub enum EscrowError {
+  | ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/errors.rs:8:5
+  |
+8 |     NotImplemented,
+  |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:11:5
+   |
+11 |     InvalidMilestoneCount,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:13:5
+   |
+13 |     ZeroMilestoneAmount,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:15:5
+   |
+15 |     TotalMismatch,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:17:5
+   |
+17 |     MathOverflow,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:19:5
+   |
+19 |     DuplicateRole,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:21:5
+   |
+21 |     MintNotAllowed,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:23:5
+   |
+23 |     Token2022Rejected,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:25:5
+   |
+25 |     InvalidMilestoneIndex,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:27:5
+   |
+27 |     OutOfOrderSubmit,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:29:5
+   |
+29 |     InvalidMilestoneState,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:31:5
+   |
+31 |     InvalidEscrowState,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:33:5
+   |
+33 |     WindowNotElapsed,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:35:5
+   |
+35 |     WindowElapsed,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:37:5
+   |
+37 |     InvalidSplitSum,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:39:5
+   |
+39 |     FeeTooHigh,
+   |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:41:5
+   |
+41 |     Paused,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:43:5
+   |
+43 |     CancelNotAllowed,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:45:5
+   |
+45 |     NotAllTerminal,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:47:5
+   |
+47 |     VaultInvariantViolated,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:49:5
+   |
+49 |     Unauthorized,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:51:5
+   |
+51 |     InvalidReviewWindow,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/errors.rs:53:5
+   |
+53 |     AllowlistUpdateInvalid,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/events.rs:6:1
+  |
+6 | pub struct ConfigInitialized {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:7:5
+  |
+7 |     pub admin: Pubkey,
+  |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:8:5
+  |
+8 |     pub treasury: Pubkey,
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/events.rs:9:5
+  |
+9 |     pub fee_bps: u16,
+  |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:13:1
+   |
+13 | pub struct PausedUpdated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:14:5
+   |
+14 |     pub paused: bool,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:18:1
+   |
+18 | pub struct ConfigUpdated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:19:5
+   |
+19 |     pub fee_bps: u16,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:20:5
+   |
+20 |     pub treasury: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:21:5
+   |
+21 |     pub allowlist_len: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:25:1
+   |
+25 | pub struct EscrowCreated {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:26:5
+   |
+26 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:27:5
+   |
+27 |     pub buyer: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:28:5
+   |
+28 |     pub seller: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:29:5
+   |
+29 |     pub arbiter: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:30:5
+   |
+30 |     pub total_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:31:5
+   |
+31 |     pub milestone_count: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:35:1
+   |
+35 | pub struct EscrowFunded {
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:36:5
+   |
+36 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:37:5
+   |
+37 |     pub amount: u64,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:41:1
+   |
+41 | pub struct MilestoneSubmitted {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:42:5
+   |
+42 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:43:5
+   |
+43 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:44:5
+   |
+44 |     pub evidence_hash: [u8; 32],
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:48:1
+   |
+48 | pub struct MilestoneReleased {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:49:5
+   |
+49 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:50:5
+   |
+50 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:51:5
+   |
+51 |     pub seller_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:52:5
+   |
+52 |     pub fee_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:53:5
+   |
+53 |     pub reason: ReleaseReason,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:57:1
+   |
+57 | pub struct DisputeRaised {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:58:5
+   |
+58 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:59:5
+   |
+59 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:60:5
+   |
+60 |     pub raised_by: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:64:1
+   |
+64 | pub struct DisputeResolved {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:65:5
+   |
+65 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:66:5
+   |
+66 |     pub index: u8,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:67:5
+   |
+67 |     pub seller_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:68:5
+   |
+68 |     pub buyer_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:72:1
+   |
+72 | pub struct EscrowCancelled {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:73:5
+   |
+73 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/events.rs:77:1
+   |
+77 | pub struct EscrowClosed {
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/events.rs:78:5
+   |
+78 |     pub escrow: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+  --> programs/escrowl/src/events.rs:82:1
+   |
+82 | pub enum ReleaseReason {
+   | ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/events.rs:83:5
+   |
+83 |     Approved,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/events.rs:84:5
+   |
+84 |     Timeout,
+   |     ^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/approve_milestone.rs:12:1
+   |
+12 | pub struct ApproveMilestone<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:14:5
+   |
+14 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:34:5
+   |
+34 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:38:5
+   |
+38 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:39:5
+   |
+39 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/approve_milestone.rs:42:1
+   |
+42 | pub fn handler(ctx: Context<ApproveMilestone>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/approve_milestone.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:11:1
+   |
+11 | pub struct CancelEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:15:5
+   |
+15 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:21:5
+   |
+21 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:27:5
+   |
+27 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:30:5
+   |
+30 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:33:1
+   |
+33 | pub fn handler(ctx: Context<CancelEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/cancel_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:12:1
+   |
+12 | pub struct ClaimAfterTimeout<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:14:5
+   |
+14 |     pub seller: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:34:5
+   |
+34 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:38:5
+   |
+38 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:39:5
+   |
+39 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:42:1
+   |
+42 | pub fn handler(ctx: Context<ClaimAfterTimeout>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/claim_after_timeout.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/close_escrow.rs:11:1
+   |
+11 | pub struct CloseEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:20:5
+   |
+20 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:26:5
+   |
+26 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:27:5
+   |
+27 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/close_escrow.rs:30:1
+   |
+30 | pub fn handler(ctx: Context<CloseEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/close_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/create_escrow.rs:15:1
+   |
+15 | pub struct CreateEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:17:5
+   |
+17 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:27:5
+   |
+27 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:35:5
+   |
+35 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:44:5
+   |
+44 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:45:5
+   |
+45 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:46:5
+   |
+46 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:47:5
+   |
+47 |     pub rent: Sysvar<'info, Rent>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/create_escrow.rs:13:10
+   |
+13 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/create_escrow.rs:50:1
+   |
+50 | / pub fn handler(
+51 | |     ctx: Context<CreateEscrow>,
+52 | |     escrow_id: u64,
+53 | |     milestone_amounts: Vec<u64>,
+54 | |     review_window_secs: i64,
+55 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/fund_escrow.rs:11:1
+   |
+11 | pub struct FundEscrow<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:13:5
+   |
+13 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:20:5
+   |
+20 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:26:5
+   |
+26 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:32:5
+   |
+32 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:37:5
+   |
+37 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:38:5
+   |
+38 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/fund_escrow.rs:41:1
+   |
+41 | pub fn handler(ctx: Context<FundEscrow>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/fund_escrow.rs:10:10
+   |
+10 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/initialize_config.rs:10:1
+   |
+10 | pub struct InitializeConfig<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/initialize_config.rs:24:5
+   |
+24 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/initialize_config.rs:25:5
+   |
+25 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/initialize_config.rs:9:10
+  |
+9 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/initialize_config.rs:28:1
+   |
+28 | pub fn handler(ctx: Context<InitializeConfig>, fee_bps: u16, allowed_mints: Vec<Pubkey>) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/raise_dispute.rs:9:1
+  |
+9 | pub struct RaiseDispute<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/raise_dispute.rs:11:5
+   |
+11 |     pub buyer: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/raise_dispute.rs:13:5
+   |
+13 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/raise_dispute.rs:16:1
+   |
+16 | pub fn handler(ctx: Context<RaiseDispute>, index: u8) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/raise_dispute.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:12:1
+   |
+12 | pub struct ResolveDispute<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:14:5
+   |
+14 |     pub arbiter: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:16:5
+   |
+16 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:22:5
+   |
+22 |     pub vault: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:28:5
+   |
+28 |     pub seller_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:34:5
+   |
+34 |     pub buyer_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:40:5
+   |
+40 |     pub treasury_ata: Account<'info, TokenAccount>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:44:5
+   |
+44 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:45:5
+   |
+45 |     pub token_program: Program<'info, Token>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:48:1
+   |
+48 | / pub fn handler(
+49 | |     ctx: Context<ResolveDispute>,
+50 | |     index: u8,
+51 | |     seller_amount: u64,
+52 | |     buyer_amount: u64,
+53 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/resolve_dispute.rs:11:10
+   |
+11 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/set_paused.rs:9:1
+  |
+9 | pub struct SetPaused<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/set_paused.rs:10:5
+   |
+10 |     pub admin: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/set_paused.rs:17:5
+   |
+17 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/set_paused.rs:20:1
+   |
+20 | pub fn handler(ctx: Context<SetPaused>, paused: bool) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/set_paused.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/submit_milestone.rs:9:1
+  |
+9 | pub struct SubmitMilestone<'info> {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/submit_milestone.rs:11:5
+   |
+11 |     pub seller: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/submit_milestone.rs:13:5
+   |
+13 |     pub escrow: Account<'info, Escrow>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/submit_milestone.rs:16:1
+   |
+16 | pub fn handler(ctx: Context<SubmitMilestone>, index: u8, evidence_hash: [u8; 32]) -> Result<()> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+ --> programs/escrowl/src/instructions/submit_milestone.rs:8:10
+  |
+8 | #[derive(Accounts)]
+  |          ^^^^^^^^
+  |
+  = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/update_config.rs:13:1
+   |
+13 | pub struct UpdateConfig<'info> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:15:5
+   |
+15 |     pub admin: Signer<'info>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:25:5
+   |
+25 |     pub config: Account<'info, Config>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:26:5
+   |
+26 |     pub system_program: Program<'info, System>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+  --> programs/escrowl/src/instructions/update_config.rs:29:1
+   |
+29 | / pub fn handler(
+30 | |     ctx: Context<UpdateConfig>,
+31 | |     new_fee_bps: Option<u16>,
+32 | |     new_treasury: Option<Pubkey>,
+33 | |     add_mint: Option<Pubkey>,
+34 | | ) -> Result<()> {
+   | |_______________^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/instructions/update_config.rs:12:10
+   |
+12 | #[derive(Accounts)]
+   |          ^^^^^^^^
+   |
+   = note: this warning originates in the derive macro `Accounts` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for an associated function
+  --> programs/escrowl/src/state/config.rs:25:5
+   |
+25 |     pub fn space(num_mints: usize) -> usize {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+  --> programs/escrowl/src/state/config.rs:29:5
+   |
+29 |     pub fn max_space() -> usize {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/state/escrow.rs:8:1
+  |
+8 | pub enum EscrowStatus {
+  | ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/escrow.rs:9:5
+  |
+9 |     Created,
+  |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:10:5
+   |
+10 |     Funded,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:11:5
+   |
+11 |     Completed,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/escrow.rs:12:5
+   |
+12 |     Cancelled,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:25:5
+   |
+25 |     pub buyer: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:26:5
+   |
+26 |     pub seller: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:27:5
+   |
+27 |     pub arbiter: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:28:5
+   |
+28 |     pub mint: Pubkey,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:29:5
+   |
+29 |     pub vault: Pubkey,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:30:5
+   |
+30 |     pub escrow_id: u64,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:31:5
+   |
+31 |     pub milestone_count: u8,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:33:5
+   |
+33 |     pub milestones: Vec<Milestone>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:34:5
+   |
+34 |     pub total_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:35:5
+   |
+35 |     pub released_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:36:5
+   |
+36 |     pub refunded_amount: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:39:5
+   |
+39 |     pub review_window_secs: i64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:40:5
+   |
+40 |     pub status: EscrowStatus,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:41:5
+   |
+41 |     pub created_at: i64,
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:42:5
+   |
+42 |     pub bump: u8,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/escrow.rs:43:5
+   |
+43 |     pub vault_bump: u8,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> programs/escrowl/src/state/escrow.rs:55:5
+   |
+55 |     pub fn all_terminal(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> programs/escrowl/src/state/escrow.rs:59:5
+   |
+59 |     pub fn any_submitted_or_beyond(&self) -> bool {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an enum
+ --> programs/escrowl/src/state/milestone.rs:6:1
+  |
+6 | pub enum MilestoneStatus {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:7:5
+  |
+7 |     Pending,
+  |     ^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:8:5
+  |
+8 |     Submitted,
+  |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+ --> programs/escrowl/src/state/milestone.rs:9:5
+  |
+9 |     Released,
+  |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:10:5
+   |
+10 |     Disputed,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:11:5
+   |
+11 |     Resolved,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> programs/escrowl/src/state/milestone.rs:12:5
+   |
+12 |     Refunded,
+   |     ^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:24:5
+   |
+24 |     pub amount: u64,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:25:5
+   |
+25 |     pub status: MilestoneStatus,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:26:5
+   |
+26 |     pub submitted_at: i64,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/state/milestone.rs:27:5
+   |
+27 |     pub evidence_hash: [u8; 32],
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> programs/escrowl/src/lib.rs:24:1
+   |
+24 | #[program]
+   | ^^^^^^^^^^
+   |
+   = note: this warning originates in the attribute macro `program` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `escrowl` (lib test) generated 245 warnings (33 duplicates)
+warning: `escrowl` (lib) generated 245 warnings (227 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 23s
+     Running unittests src/lib.rs (/home/garba-the-analyst/Desktop/Projects/Escrowl/target/debug/deps/escrowl-898db82e2790087f)
+
+running 15 tests
+test state::milestone::tests::terminal_and_locked_partition_all_states ... ok
+test utils::math::tests::checked_sum_ok_and_overflow ... ok
+test test_id ... ok
+test utils::math::tests::fee_floors_and_dust_goes_to_seller ... ok
+test utils::math::tests::fee_max_bps_boundary ... ok
+test utils::math::tests::fee_u64_max_does_not_overflow ... ok
+test utils::math::tests::fee_zero_bps_gives_zero_fee ... ok
+test utils::math::tests::fee_standard_250bps ... ok
+test utils::validation::tests::distinct_roles_ok ... ok
+test utils::math::tests::fee_zero_amount_gives_zero_fee ... ok
+test utils::validation::tests::fee_bounds ... ok
+test utils::validation::tests::allowlist_bounds ... ok
+test utils::validation::tests::duplicate_roles_rejected ... ok
+test utils::validation::tests::milestone_counts ... ok
+test utils::validation::tests::window_bounds ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/model_fuzz.rs (/home/garba-the-analyst/Desktop/Projects/Escrowl/target/debug/deps/model_fuzz-81b0bc1d8f64d12d)
+
+running 3 tests
+test fuzz_late_dispute_rejected ... ok
+test fuzz_timeout_claim_path_reached ... ok
+test fuzz_state_machine_seeds ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+   Doc-tests escrowl
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: the 'cargo-clippy' binary, normally provided by the 'clippy' component, is not applicable to the '1.89.0-x86_64-unknown-linux-gnu' toolchain
+bash: ./node_modules/.bin/tsc: No such file or directory
+
+Found a 'test' script in the Anchor.toml. Running it as a test suite!
+
+Running test suite: "/home/garba-the-analyst/Desktop/Projects/Escrowl/Anchor.toml"
+
+yarn run v1.22.22
+$ /home/garba-the-analyst/Desktop/Projects/Escrowl/node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 tests/helpers/index.ts tests/integration/01-happy-path.ts tests/integration/02-disputes-timeouts.ts tests/integration/03-adversarial.ts
+
+
+  escrowl: happy path
+    ✔ initializes config (admin = provider wallet) (2989ms)
+    ✔ buyer creates a 2-milestone escrow (I6/I7/I8) (408ms)
+    ✔ buyer funds the vault exactly once (I1) (2073ms)
+    ✔ milestone 0: submit -> approve with exact fee split (I2/I5) (839ms)
+    ✔ milestone 1 completes the escrow, then close reclaims rent (I10) (1193ms)
+
+  escrowl: disputes + timeouts
+    ✔ claim before deadline fails (protects buyer review window) (1246ms)
+    ✔ buyer disputes in-window; non-buyer cannot (I2) (1669ms)
+    ✔ arbiter resolves 60/40; wrong splits rejected (I4) (2064ms)
+    ✔ non-arbiter cannot resolve (I2: has_one constraint) (1652ms)
+    ✔ full-buyer refund path (100% to buyer, fee-free) (2096ms)
+
+  escrowl: adversarial
+    ✔ rejects duplicate roles (I6) (112ms)
+    ✔ rejects malformed milestone sets (I7) (80ms)
+    ✔ rejects bad window and foreign mint (I8) (244ms)
+    ✔ rejects out-of-order submit and double submit (I3) (2053ms)
+    ✔ blocks cancel after work starts; allows cancel when pristine (2459ms)
+    ✔ pause blocks create/fund but never exits (I9) (5405ms)
+    ✔ admin can rotate fee/treasury and append mints; dupes + outsiders rejected (823ms)
+    ✔ non-admin cannot pause; close gated on terminal (I10) (63ms)
+
+
+  18 passing (35s)
+
+Done in 37.54s.
+Deploying cluster: https://api.devnet.solana.com
+Upgrade authority: /home/garba-the-analyst/.config/solana/id.json
+Deploying program "escrowl"...
+Program path: /home/garba-the-analyst/Desktop/Projects/Escrowl/target/deploy/escrowl.so...
+Error: Account EzCDKkTTvQABGEhcCiyKvaBPPudf1hTa33R4FEHFGD2P has insufficient funds for spend (2.35019596 SOL) + fee (0.002425 SOL)
+There was a problem deploying: Output { status: ExitStatus(unix_wait_status(256)), stdout: "", stderr: "" }.
+(global) garba-the-analyst@GarbaTheAnalyst-PC:~/Desktop/Projects/Escrowl/app$ 
+

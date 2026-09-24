@@ -1,0 +1,73 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchains (pinned, matches scripts/setup-toolchain.sh)
+        run: |
+          bash scripts/setup-toolchain.sh
+          echo "$HOME/.local/bin:$HOME/.local/share/solana/bin:$HOME/.cargo/bin" >> "$GITHUB_PATH"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.89.0
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: escrowl
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy (deny safety lints, no suppressions)
+        run: cargo clippy --all-targets --locked -- -D clippy::all -D clippy::unwrap_used -D clippy::expect_used
+      - name: unit + model tests
+        run: cargo test --locked -p escrowl
+      - name: install audit tools
+        run: cargo install cargo-audit cargo-deny --locked
+      - name: audit (fails on vulnerabilities)
+        run: cargo audit
+      - name: deny (licenses, bans, sources, advisories)
+        run: cargo deny check
+      - name: anchor build
+        run: anchor build
+      - name: no driftsort in shipped binary
+        run: |
+          if readelf -s target/sbpf-solana-solana/release/escrowl.so | grep -qi driftsort; then
+            echo "driftsort present in shipped binary" >&2
+            exit 1
+          fi
+          echo "driftsort absent: OK"
+      - name: LiteSVM real-program tests
+        run: RUSTUP_TOOLCHAIN=stable cargo test --locked --manifest-path tests-litesvm/Cargo.toml
+
+  ts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchains (pinned, matches scripts/setup-toolchain.sh)
+        run: |
+          bash scripts/setup-toolchain.sh
+          echo "$HOME/.local/bin:$HOME/.local/share/solana/bin:$HOME/.cargo/bin" >> "$GITHUB_PATH"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.89.0
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: escrowl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: install root deps
+        run: npm ci
+      - name: anchor build (program + IDL for tests)
+        run: anchor build
+      - name: typecheck (sdk, scripts, tests)
+        run: ./node_modules/.bin/tsc --noEmit -p tsconfig.json
+      - name: anchor integration tests (localnet validator)
+        run: anchor test --provider.cluster localnet
+      - name: frontend install + build
+        run: npm ci --prefix app && npm run build --prefix app

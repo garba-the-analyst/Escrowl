@@ -1,0 +1,22 @@
+# Rust / Anchor
+target/
+programs/escrowl/target/
+test-ledger/
+.anchor/
+.idl/
+# Keypairs must NEVER be committed (program upgrade authority lives here)
+*keypair*.json
+id.json
+sdk/node_modules/
+sdk/dist/
+app/node_modules/
+app/.next/
+app/dist/
+app/out/
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+coverage/

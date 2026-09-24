@@ -1,0 +1,17 @@
+[workspace]
+members = ["programs/escrowl"]
+exclude = ["tests-litesvm"]
+resolver = "2"
+
+[workspace.lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[profile.release]
+overflow-checks = true

@@ -1,0 +1,11 @@
+(global) garba-the-analyst@GarbaTheAnalyst-PC:~/Desktop/Projects/Escrowl$ # 4. Frontend (new terminal)
+cd app && echo 'NEXT_PUBLIC_PROGRAM_ID=61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE' > .env.local && npm run dev
+
+> escrowl-app@0.1.0 dev
+> next dev
+
+sh: 1: next: not found
+(global) garba-the-analyst@GarbaTheAnalyst-PC:~/Desktop/Projects/Escrowl/app$ cd app && echo 'NEXT_PUBLIC_PROGRAM_ID=61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE' > .env.local && npm run dev
+bash: cd: app: No such file or directory
+(global) garba-the-analyst@GarbaTheAnalyst-PC:~/Desktop/Projects/Escrowl/app$ 
+
