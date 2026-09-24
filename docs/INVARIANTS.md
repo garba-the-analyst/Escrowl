@@ -13,6 +13,14 @@
 - I8 mint in allowlist + owned by classic Token program.
 - I9 pause never blocks exits (approve/claim/resolve/cancel/close work while paused).
 - I10 closing zeroes data, vault empty, rent to buyer.
+- I11 liveness: for every Funded escrow, bounded time plus at most one
+  instruction per live party suffices to leave the vault empty — even if the
+  seller or arbiter never act again. Enforced by `reclaim_stale_milestone`
+  (buyer refunds Pending past seller_deadline_secs) and `expire_dispute`
+  (either party splits Disputed 50/50 past arbiter_timeout_secs).
+- I12 conservation: every accepted instruction preserves
+  vault + seller + buyer + treasury == funded total, and
+  released + refunded + locked + cancelled == total.
 
 ## Test mapping (Phase 3)
 
@@ -28,6 +36,8 @@
 | I8 | `allowlist_bounds` | `03` foreign mint rejected (Token-2022 rejection is structural: vault/mint must be classic `Account<Mint>`) |
 | I9 | — | `03` pause blocks create+fund, approve succeeds while paused |
 | I10 | — | `01` close after completed, fetch throws; `03` close on non-terminal fails |
+| I11 | `reclaim_stale_milestone.rs`, `expire_dispute.rs` (deadlines via `funded_at`/`terminal_at`/`disputed_at`) | LiteSVM `liveness.rs` (4 tests) + `mixed_8_milestone_lifecycle` + fuzz (200×100, conservation on every op) |
+| I12 | every payout path (check → transfer → flip, atomic) | LiteSVM conservation asserts after EVERY accepted op + state-hash equality after EVERY rejected op |
 
 Timeout-success claim (seller path past deadline) needs clock warp: covered by
 LiteSVM in Phase 4. TS asserts the security-critical directions

@@ -1,7 +1,7 @@
 # Escrowl
 
 [![CI](https://github.com/garba-the-analyst/Escrowl/actions/workflows/ci.yml/badge.svg)](https://github.com/garba-the-analyst/Escrowl/actions/workflows/ci.yml)
-[![Anchor](https://img.shields.io/badge/anchor-0.31.1-blueviolet)](Anchor.toml)
+[![Anchor](https://img.shields.io/badge/anchor-0.31.2-blueviolet)](Anchor.toml)
 [![Solana](https://img.shields.io/badge/solana-devnet-green)](docs/DEPLOYMENT.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -38,24 +38,39 @@ cd app && npm install && npm run dev  # set NEXT_PUBLIC_PROGRAM_ID in .env.local
 
 ## Security posture
 
-Threat model + 10 invariants + negative/role/fuzz tests. See `docs/THREAT_MODEL.md`, `docs/INVARIANTS.md`, `docs/SECURITY.md`.
+Threat model + 12 invariants (I1–I12) + role/adversarial/fuzz tests — all
+proven against the real program unless marked otherwise. See
+`docs/THREAT_MODEL.md`, `docs/INVARIANTS.md`, `docs/SECURITY.md`,
+`docs/SELF_AUDIT.md`, `docs/AUDIT_PREP.md`.
+
+> Escrowl has NOT been externally audited. The arbiter is a trusted role and
+> the admin key is trusted pre-mainnet (see Trust model in AUDIT_PREP.md).
 
 ### Security self-audit (run before every release)
 
 ```bash
-cargo clippy --all-targets --locked   # workspace lints: clippy::all deny, no unwrap/expect, unsafe forbid
-cargo fmt --check
-cargo audit                                  # no known vulnerable deps (Cargo.lock pinned)
-cargo deny check licenses bans sources
-cargo test -p escrowl --locked               # 15 unit + 3 model-fuzz suites
-trident fuzz --timeout 3600                  # on-chain fuzz, log in docs/FUZZ_FINDINGS.md
-solana-verify build --library-name escrowl   # reproducible build matches deploy
+bash scripts/verify-repo.sh   # everything below in one command (non-zero on failure)
 ```
 
-Latest results: clippy clean (safety lints), `cargo test` 18/18 green,
-model fuzz ~80k randomized transitions with zero conservation violations,
-1 spec finding fixed (F-01, I1 scoping). Details in `docs/FUZZ_FINDINGS.md`.
-On-chain Trident run happens on the dev machine (see `tests/fuzz/README.md`).
+What it runs: `cargo fmt --check`; `cargo clippy` with deny flags;
+`cargo test` (16 unit + 3 model); `anchor build` + no-driftsort check;
+LiteSVM real-program suites (23 tests incl. 200×100 randomized
+conservation fuzz); `anchor test` (19 integration); `tsc --noEmit`;
+`next build`; `cargo audit`; `cargo deny check`.
+
+## What is and is not verified (2026-09-24)
+
+- Verified here, with output: 16 Rust unit · 3 model checks · 19 Anchor
+  integration (localnet) · 23 LiteSVM real-program tests (9 adversarial,
+  4 lifecycle, 4 liveness, 1 smoke, 4 fuzz shards of 50 seeds × 100 ops);
+  clippy deny-flags clean; fmt clean; `anchor build` green; `next build`
+  green; devnet deployment + seeded escrows in every state.
+- NOT done here: external audit (none — this repo is applying for one);
+  Trident on-chain fuzz (runbook in `tests/fuzz/README.md`, pending);
+  `solana-verify` reproducible build (pending).
+- Model checks (`programs/escrowl/tests/model_fuzz.rs`) validate fee math
+  and a mirrored state model — they are NOT program fuzzing. Real
+  randomized coverage is the LiteSVM fuzz above.
 
 ## Demo (3 minutes)
 
@@ -72,4 +87,6 @@ Token-2022 support, multi-arbiter, reputation, Helius indexer, mainnet.
 
 ## Bounty
 
-Submitted to Colosseum Crypto World's Fair; applied to Adevar Labs $20k Pre-Audit track on Superteam Earn.
+Built for Colosseum Crypto World's Fair (submit before 12 Oct 2026) and the
+Adevar Labs $20k Pre-Audit side track on Superteam Earn. Submission status
+is tracked off-repo — confirm on the respective platforms.

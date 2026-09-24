@@ -36,7 +36,14 @@ with a designated arbiter for disputes. No custodian holds keys."
 3. Note the countdown: seller could have claimed after the window with no
    dispute (show the timer on a Submitted milestone).
 
-## 2:30–3:00 — close + security posture (slides)
+## 2:30–2:50 — liveness exits (Detail page)
+
+1. Show a stale Pending milestone past its seller deadline → Reclaim as
+   buyer: the remainder refunds in one call (I11).
+2. Show an expired dispute past the arbiter timeout → Expire as either
+   party: exact 50/50 with the odd unit to the buyer (I11).
+
+## 2:50–3:00 — close + security posture (slides)
 
 1. Close the completed escrow; rent returns to buyer (I10).
 2. Close-out slide: 10 invariants, threat model, 18 Rust tests + 30 TS

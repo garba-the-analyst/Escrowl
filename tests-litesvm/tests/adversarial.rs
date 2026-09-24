@@ -243,6 +243,33 @@ fn fee_edges_max_fee_and_dust() {
 }
 
 #[test]
+fn account_aliasing_rejected() {
+    // Same account in two roles must fail constraints, never move funds.
+    let (mut env, c, buyer, seller, arbiter) = setup1();
+    fund_submit(&mut env, &c, &buyer, &seller);
+    // seller_ata == treasury_ata (treasury snapshot owner != seller).
+    let mut evil = c;
+    evil.treasury_ata = c.seller_ata;
+    expect_code(&mut env, &[&buyer], ix_approve(&evil, &evil.buyer, 0), E_UNAUTHORIZED);
+    // Vault passed as the seller destination (owner is the escrow PDA).
+    let mut evil2 = c;
+    evil2.seller_ata = c.vault;
+    expect_code(&mut env, &[&buyer], ix_approve(&evil2, &evil2.buyer, 0), E_UNAUTHORIZED);
+    // Escrow PDA passed as buyer destination: Anchor's Account<TokenAccount>
+    // deserialization rejects it first (owner is our program, not the Token
+    // program: AccountOwnedByWrongProgram 3007) — defense in depth ahead of
+    // our owner-equality constraint. Either layer failing is correct.
+    env.send(&[&buyer], &[ix_dispute(&c, &c.buyer, 0)]);
+    let mut evil3 = c;
+    evil3.buyer_ata = c.escrow;
+    expect_code(&mut env, &[&arbiter], ix_resolve(&evil3, &evil3.arbiter, 0, 200_000, 200_000), 3007);
+    // Funds untouched by all three attempts.
+    let pots = Pots::read(&env, &c);
+    assert_eq!(pots.sum(), 5_000_000);
+    assert_eq!(pots.vault, 400_000);
+}
+
+#[test]
 fn dispute_split_boundaries() {
     let (mut env, c, buyer, seller, arbiter) = setup1();
     fund_submit(&mut env, &c, &buyer, &seller);
