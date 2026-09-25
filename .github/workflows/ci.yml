@@ -65,6 +65,20 @@ jobs:
         run: npm ci
       - name: anchor build (program + IDL for tests)
         run: anchor build
+      - name: Configure Solana test wallet (Anchor.toml expects ~/.config/solana/id.json)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.config/solana"
+          solana-keygen new \
+            --no-bip39-passphrase \
+            --force \
+            --silent \
+            --outfile "$HOME/.config/solana/id.json"
+          solana config set \
+            --url localhost \
+            --keypair "$HOME/.config/solana/id.json"
+          test -f "$HOME/.config/solana/id.json"
       - name: typecheck (sdk, scripts, tests)
         run: ./node_modules/.bin/tsc --noEmit -p tsconfig.json
       - name: anchor integration tests (localnet validator)
