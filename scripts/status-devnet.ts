@@ -6,11 +6,11 @@ import { EscrowlClient } from "../sdk/src";
 import { escrowStatus, milestoneStatus } from "../sdk/src/types";
 
 const ADDRESSES: Record<string, string> = {
-  Created: "9PNUqAk71WgM2Lk71Eh78Kuwe42kjhjgDE3DFLy1u1hx",
-  Funded: "HKXGgD5au34qzKoRKX8cKRjc4mrcd5j4P5C6dj2KRBG9",
-  Submitted: "8z5MtZPnw6szboDox7X8FwMXAxrvVvmTEXD33eaffczr",
-  Disputed: "3FRYL78kVRLpW14guZdi2hQPpjo82U2vVPseU9gKYuD5",
-  Completed: "Gj9G6ZSCU27JvSR8mDSpH2cBqXqDYNvn3cCsqg2gvyNC",
+  Created: "3agdqg4YC1P5YUx1GR39ewqXJPiRaULRtApSLgXWWZJn",
+  Funded: "8raZpxUUq2GGG4NFU4w5kP4MzoseLkqjuQnH9WnvTpiH",
+  Submitted: "AtiH1BbP1CjXrx5mZEARF1W6sYfZ4SkdWJ5xCAwL9VA6",
+  Disputed: "5tftybXA663PvxfJNFM82drpnEARBb3sQHU5vEfeLEBW",
+  Completed: "Ff94z2WhQB8psAoDoAaFpnDugUV5wLQkVuRVQE1bEwiE",
 };
 
 async function main() {

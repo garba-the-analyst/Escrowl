@@ -20,10 +20,9 @@
 anchor deploy --provider.cluster devnet && yarn seed-devnet
 ```
 
-> Note (2026-09-24): repo source is `cargo fmt`-clean; the formatted rebuild
-> hashes `0db8…ff15` vs deployed `7a85…b78a` (whitespace/comments only, IDL
-> identical). Upgrade needs ~2.35 SOL buffer rent temporarily — redeploy +
-> reseed once the wallet is topped up.
+Redeployed 2026-09-24 (upgrade tx `4g72…doyDGH`, same program ID) with the
+hardened binary; source, binary, and IDL verified in sync. Reseed with
+`MINT=<existing> ESCROW_ID_BASE=42 yarn seed-devnet` to reuse infrastructure.
 ```
 
 ## Steps (full runbook)
@@ -99,10 +98,29 @@ yarn seed-devnet
 - Escrows in Created, Funded, Submitted, Disputed, Completed states
 - Prints explorer links — paste below after running
 
-## Live addresses (deployed + seeded 2026-09-24)
+## Live addresses (hardened redeploy + seed, 2026-09-24)
 
-Deploy tx: `5QFT1nXbMPmSMT1ZvxnX7kG9JU17JNsFMTUKE1bshR8A7TyyGc8xGXsCtBrCxaeS8vJUUKZ25Ku5JkorRFYncx5u`
-([explorer](https://explorer.solana.com/tx/5QFT1nXbMPmSMT1ZvxnX7kG9JU17JNsFMTUKE1bshR8A7TyyGc8xGXsCtBrCxaeS8vJUUKZ25Ku5JkorRFYncx5u?cluster=devnet))
+Deploy tx (upgrade, same program ID):
+`4g72e3PL8PvBVX2pNCqeXX9QFwgemHHKibATtEFzDT4Bt7z8LGXvPrEgK3N7phk6F2eR65PqVnqPgL1aoxdoyDGH`
+([explorer](https://explorer.solana.com/tx/4g72e3PL8PvBVX2pNCqeXX9QFwgemHHKibATtEFzDT4Bt7z8LGXvPrEgK3N7phk6F2eR65PqVnqPgL1aoxdoyDGH?cluster=devnet))
+
+| Item | Address |
+|---|---|
+| Program | `61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE` |
+| Mint (6-dec test) | `2hXoewgipvq5ap7fb475MjdTxbXGNiF9M7ZjGkg9MbPq` |
+| Buyer | `2wT1Vpz17XwhCPMfvx1Gtqe32rv7TisuGeyTrP4JoEv1` |
+| Seller | `5XUjtvYNxZNpeHH3VsgZdCHJ2MraDMwcYRGHsFSguXFy` |
+| Arbiter | `AZSP7d8UqZc51AXgdzbjE1qbskCNZXQoiMUAnc43N7im` |
+| Treasury owner | `AaqKSZsjKUQ5nrMmgF2SrhcmwSHwgiJojjmQN4So8Pe1` |
+| Escrow (Created) | `3agdqg4YC1P5YUx1GR39ewqXJPiRaULRtApSLgXWWZJn` |
+| Escrow (Funded) | `8raZpxUUq2GGG4NFU4w5kP4MzoseLkqjuQnH9WnvTpiH` |
+| Escrow (Submitted) | `AtiH1BbP1CjXrx5mZEARF1W6sYfZ4SkdWJ5xCAwL9VA6` |
+| Escrow (Disputed) | `5tftybXA663PvxfJNFM82drpnEARBb3sQHU5vEfeLEBW` |
+| Escrow (Completed) | `Ff94z2WhQB8psAoDoAaFpnDugUV5wLQkVuRVQE1bEwiE` |
+
+Append `?cluster=devnet` on explorer links. Prior v0.0.0 addresses (first
+deploy `5QFT…korR`, old mint/escrows) are superseded — the account layout
+changed, so old escrows are no longer readable.
 
 | Item | Address |
 |---|---|

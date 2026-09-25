@@ -61,7 +61,10 @@ async function main() {
 
   try {
     await client.getConfig();
-    console.log("config: exists, skipping init");
+    console.log("config: exists, onboarding mint + rotating treasury via update_config");
+    await client
+      .updateConfig(provider.wallet.publicKey, null, treasuryOwner.publicKey, mint)
+      .rpc();
   } catch {
     await client
       .initializeConfig(provider.wallet.publicKey, treasuryOwner.publicKey, FEE_BPS, [mint])
