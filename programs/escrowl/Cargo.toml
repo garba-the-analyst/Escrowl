@@ -3,6 +3,7 @@ name = "escrowl"
 version = "0.1.0"
 description = "Milestone-based, dispute-aware SPL escrow protocol for Solana"
 edition = "2021"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "lib"]

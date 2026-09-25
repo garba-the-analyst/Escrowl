@@ -16,8 +16,11 @@ We aim to acknowledge within 48h and patch devnet deployments promptly.
   `clippy::all` + `unwrap_used`/`expect_used`, forbid `unsafe_code`)
   — verified 2026-09-24, 0 errors.
 - [x] `cargo fmt --check` clean — verified 2026-09-24.
-- [ ] `cargo audit` clean
-- [ ] `cargo deny check` clean
+- [x] `cargo audit` clean (exit 0; 3 allowed warnings, no vulnerabilities)
+  — verified 2026-09-24.
+- [x] `cargo deny check` clean (advisories/bans/licenses/sources ok;
+  2 narrowly-scoped unmaintained ignores with rationale in `deny.toml`)
+  — verified 2026-09-24.
 - [ ] `cargo geiger` reviewed (no unexpected unsafe)
 - [x] Rust tests: 15 unit + 3 model-fuzz (`cargo test -p escrowl --locked`,
   18/18 green) + 19 Anchor integration cases (`anchor test`, all passing).
