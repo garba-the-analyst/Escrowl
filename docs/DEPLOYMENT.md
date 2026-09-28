@@ -2,9 +2,15 @@
 
 ## Devnet (target)
 
-- Program ID: `61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE`
+- Program ID: `7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn`
 - Cluster: devnet
-- Explorer: https://explorer.solana.com/address/61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE?cluster=devnet
+- Explorer: https://explorer.solana.com/address/7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn?cluster=devnet
+
+> History: first deployed as `61YP…3zwE` (txs `5QFT…korR`, `4g72…doyDGH`).
+> That program is now FROZEN — its upgrade keypair was lost when `target/`
+> was deleted without a backup. Redeployed fresh under the ID above.
+> Lesson recorded: back up `target/deploy/escrowl-keypair.json` offline
+> (see DECISIONS.md).
 
 ## Status (2026-09-24)
 
@@ -98,11 +104,27 @@ yarn seed-devnet
 - Escrows in Created, Funded, Submitted, Disputed, Completed states
 - Prints explorer links — paste below after running
 
-## Live addresses (hardened redeploy + seed, 2026-09-24)
+## Live addresses (fresh deployment, seeded 2026-09-24)
 
-Deploy tx (upgrade, same program ID):
-`4g72e3PL8PvBVX2pNCqeXX9QFwgemHHKibATtEFzDT4Bt7z8LGXvPrEgK3N7phk6F2eR65PqVnqPgL1aoxdoyDGH`
-([explorer](https://explorer.solana.com/tx/4g72e3PL8PvBVX2pNCqeXX9QFwgemHHKibATtEFzDT4Bt7z8LGXvPrEgK3N7phk6F2eR65PqVnqPgL1aoxdoyDGH?cluster=devnet))
+Deploy tx (fresh program, new ID):
+`3KAeCyVkAYxWJMDHDt4Z2P8yxjRCcmZhJntg7mZcCGaxV1uij46iUx332xCxd2AG3QsL1KNFiDtozrNtw2cFU8fu`
+([explorer](https://explorer.solana.com/tx/3KAeCyVkAYxWJMDHDt4Z2P8yxjRCcmZhJntg7mZcCGaxV1uij46iUx332xCxd2AG3QsL1KNFiDtozrNtw2cFU8fu?cluster=devnet))
+
+| Item | Address |
+|---|---|
+| Program | `7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn` |
+| Mint (6-dec test) | `uvV1ih5NrvV1UBZuwX9Qqi5e99SthVrZbhtWYf9SdfS` |
+| Buyer | `4EsgikAeCP2KW9AQ8Ep1FZEyd8FWVDbTFdjSdRbFVKz9` |
+| Seller | `6jiwvs7zJkxdCaCA4cyynSX2Jgo4bSwXawbx3Mxb2feL` |
+| Arbiter | `CZ8pA6Sc27Ep75n7rNjavsHBa7hzZAeuLUGJKus4bbyT` |
+| Treasury owner | `F7vWSH7hFMn46V7eiTzTS61AAKn6CgA7SwVjNWNqd6JR` |
+| Escrow (Created) | `huZokHPQ7kF29sZZ1EiCkPvRCcfYvMunwSa1jhtiyTu` |
+| Escrow (Funded) | `FKTp1chn8GE76W9BRXqo4bJgkvG9tKKsUTmh8YakD93r` |
+| Escrow (Submitted) | `J588Ai9rKmiqn3PTdozUXK7mBXxTESgaUXYzwxMdA6zC` |
+| Escrow (Disputed) | `7UvwNb9wg8nKDzFFFR3xQQ1qKeKqVKjr5sTpAaZiF49H` |
+| Escrow (Completed) | `C8QvcBZSfYNrrhuV7NcadXk5tfEYFU2wmb6yB7pQPz3h` |
+
+### Superseded (frozen program, history only)
 
 | Item | Address |
 |---|---|

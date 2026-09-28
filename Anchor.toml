@@ -7,10 +7,10 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-escrowl = "61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE"
+escrowl = "7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn"
 
 [programs.localnet]
-escrowl = "61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE"
+escrowl = "7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn"
 
 [registry]
 url = "https://api.apr.dev"

@@ -28,5 +28,5 @@
 ## v0.0.0 — initial devnet deployment (2026-09-24)
 
 - 11-instruction program deployed to devnet at
-  `61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE`; seeded escrows in every
+  `7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn`; seeded escrows in every
   state. Superseded by Unreleased (requires redeploy + reseed).

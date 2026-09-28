@@ -25,7 +25,7 @@ const EVIDENCE = Array.from(Buffer.alloc(32, 9));
 const AMOUNTS = [500_000n, 300_000n];
 const TOTAL: bigint = AMOUNTS[0] + AMOUNTS[1];
 
-async function airdrop(conn: anchor.web3.Connection, to: anchor.web3.PublicKey) {
+async function fund(conn: anchor.web3.Connection, to: anchor.web3.PublicKey, sol: number) {
   // Public faucet is unreliable — fund from the deployer wallet instead.
   const walletPath =
     process.env.ANCHOR_WALLET ?? `${process.env.HOME}/.config/solana/id.json`;
@@ -35,9 +35,13 @@ async function airdrop(conn: anchor.web3.Connection, to: anchor.web3.PublicKey) 
   const ix = SystemProgram.transfer({
     fromPubkey: deployer.publicKey,
     toPubkey: to,
-    lamports: Math.floor(0.5 * LAMPORTS_PER_SOL),
+    lamports: Math.floor(sol * LAMPORTS_PER_SOL),
   });
   await sendAndConfirmTransaction(conn, new Transaction().add(ix), [deployer]);
+}
+
+async function airdrop(conn: anchor.web3.Connection, to: anchor.web3.PublicKey) {
+  await fund(conn, to, 0.01);
 }
 
 async function main() {
@@ -50,7 +54,9 @@ async function main() {
   const seller = Keypair.generate();
   const arbiter = Keypair.generate();
   const treasuryOwner = Keypair.generate();
-  for (const kp of [buyer, seller, arbiter, treasuryOwner]) {
+  // Buyer pays all rent (mint, ATAs, escrows, vaults); others only need fees.
+  await fund(conn, buyer.publicKey, 0.05);
+  for (const kp of [seller, arbiter, treasuryOwner]) {
     await airdrop(conn, kp.publicKey);
   }
 

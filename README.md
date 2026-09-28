@@ -79,7 +79,7 @@ submit/approve with fee split → dispute + exact-split resolve → close.
 
 ## Program ID (devnet)
 
-`61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE` — [explorer](https://explorer.solana.com/address/61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE?cluster=devnet) (see `docs/DEPLOYMENT.md`)
+`7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn` — [explorer](https://explorer.solana.com/address/7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn?cluster=devnet) (see `docs/DEPLOYMENT.md`)
 
 ## Roadmap
 

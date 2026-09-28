@@ -20,7 +20,7 @@ pub mod utils;
 
 use instructions::*;
 
-declare_id!("61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE");
+declare_id!("7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn");
 
 #[program]
 pub mod escrowl {

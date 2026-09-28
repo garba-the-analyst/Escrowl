@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const PROGRAM_ID =
-  process.env.NEXT_PUBLIC_PROGRAM_ID ?? "61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE";
+  process.env.NEXT_PUBLIC_PROGRAM_ID ?? "7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const explorer = `https://explorer.solana.com/address/${PROGRAM_ID}?cluster=devnet`;
