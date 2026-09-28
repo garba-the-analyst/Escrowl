@@ -7,6 +7,8 @@
 
 Milestone-based, dispute-aware SPL escrow on Solana — built for Colosseum Crypto World's Fair + Adevar Labs Pre-Audit side track.
 
+**Live demo:** https://garba-the-analyst.github.io/Escrowl/ · **Program (devnet):** `7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn`
+
 ## Why
 
 Freelance / P2P payments need trust without intermediaries holding keys. Escrowl is the reusable custody primitive: buyer funds a PDA vault, seller delivers per-milestone, arbiter resolves disputes with exact splits.
