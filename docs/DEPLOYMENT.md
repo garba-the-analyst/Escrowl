@@ -111,19 +111,26 @@ yarn seed-devnet
   (via `npx @solana-program/program-metadata write security`), pointing at
   `security.json` in this repo (name, project URL, contact, policy).
 - Verifiable build (`solana-verify 0.5.2`, Docker):
-  build hash `8ad8ad4a99bee61fd463505824b679d1d80bbcd921c6772a4a946a39558e458a`
-  vs on-chain programdata hash `9cfc395784848ba9a4699358fed05cbd767e3952f6ea37a1d355bfb9ced85001`.
-  Different bytes = different rustc between the local and Docker toolchains,
-  not a source difference. Reproduce with
-  `solana-verify build --library-name escrowl`. Syncing the on-chain binary
-  to the verifiable one happens on the next funded redeploy.
+  build hash `8ad8ad4a99bee61fd463505824b679d1d80bbcd921c6772a4a946a39558e458a`.
+  Redeployed from the deterministic binary (deploy tx below); dumping the
+  on-chain program (`solana program dump`) and hashing reproduces
+  `8ad8ad4a…` exactly — **deployed bytes == verifiable build**.
+  (Note: `get-buffer-hash` hashes the programdata account *including* its
+  metadata header, so it differs by construction — compare dumped bytes.)
 - `solana-verify` runs Docker as root and leaves root-owned files under
   `target/` (harmless: gitignored, and our crate's own dirs stay user-owned
   so rebuilds work). To fully purge them without sudo, delete via a
   root-in-container one-liner:
   `docker run --rm -v "$PWD/target:/t" alpine rm -rf /t`
 
-## Live addresses (fresh deployment, seeded 2026-09-24)
+## Live addresses (verifiable redeploy, 2026-09-28)
+
+Redeploy tx (deterministic `solana-verify` binary, same program ID):
+`4PusxL78gmTcAufnqEZA94p5S92CBCLzo1gyBM2pPjKGbV8Z8tJd5WyxA6nsNoCreVuP22BLjw1dGZMnByjzPLh7`
+([explorer](https://explorer.solana.com/tx/4PusxL78gmTcAufnqEZA94p5S92CBCLzo1gyBM2pPjKGbV8Z8tJd5WyxA6nsNoCreVuP22BLjw1dGZMnByjzPLh7?cluster=devnet))
+
+Seed state below is unchanged (same account layout — no program source
+changes since the previous seed).
 
 Deploy tx (fresh program, new ID):
 `3KAeCyVkAYxWJMDHDt4Z2P8yxjRCcmZhJntg7mZcCGaxV1uij46iUx332xCxd2AG3QsL1KNFiDtozrNtw2cFU8fu`
