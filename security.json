@@ -1,0 +1,15 @@
+{
+  "name": "Escrowl",
+  "project_url": "https://github.com/garba-the-analyst/Escrowl",
+  "contacts": [
+    {
+      "type": "email",
+      "contact": "garbaabdullahi344@gmail.com"
+    }
+  ],
+  "policy": "https://github.com/garba-the-analyst/Escrowl/blob/main/docs/SECURITY.md",
+  "preferred_languages": "en",
+  "source_release": "v0.1.0-hackathon",
+  "source_revision": "main",
+  "auditors": "None - pre-audit track applicant (Adevar Labs)"
+}

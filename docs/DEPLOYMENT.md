@@ -104,6 +104,25 @@ yarn seed-devnet
 - Escrows in Created, Funded, Submitted, Disputed, Completed states
 - Prints explorer links — paste below after running
 
+## Program metadata (explorer badges, 2026-09-28)
+
+- security.txt: live at metadata account
+  `DqBCCEzGpv87kfjqEBm9ABkx3acdh9sPBroSnXCN5VcT`
+  (via `npx @solana-program/program-metadata write security`), pointing at
+  `security.json` in this repo (name, project URL, contact, policy).
+- Verifiable build (`solana-verify 0.5.2`, Docker):
+  build hash `8ad8ad4a99bee61fd463505824b679d1d80bbcd921c6772a4a946a39558e458a`
+  vs on-chain programdata hash `9cfc395784848ba9a4699358fed05cbd767e3952f6ea37a1d355bfb9ced85001`.
+  Different bytes = different rustc between the local and Docker toolchains,
+  not a source difference. Reproduce with
+  `solana-verify build --library-name escrowl`. Syncing the on-chain binary
+  to the verifiable one happens on the next funded redeploy.
+- `solana-verify` runs Docker as root and leaves root-owned files under
+  `target/` (harmless: gitignored, and our crate's own dirs stay user-owned
+  so rebuilds work). To fully purge them without sudo, delete via a
+  root-in-container one-liner:
+  `docker run --rm -v "$PWD/target:/t" alpine rm -rf /t`
+
 ## Live addresses (fresh deployment, seeded 2026-09-24)
 
 Deploy tx (fresh program, new ID):

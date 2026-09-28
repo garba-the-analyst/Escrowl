@@ -22,11 +22,13 @@ We aim to acknowledge within 48h and patch devnet deployments promptly.
   2 narrowly-scoped unmaintained ignores with rationale in `deny.toml`)
   — verified 2026-09-24.
 - [ ] `cargo geiger` reviewed (no unexpected unsafe)
-- [x] Rust tests: 15 unit + 3 model-fuzz (`cargo test -p escrowl --locked`,
-  18/18 green) + 19 Anchor integration cases (`anchor test`, all passing).
+- [x] Rust tests: 16 unit + 3 model checks (`cargo test -p escrowl --locked`)
+  + 19 Anchor integration (`anchor test`) + 23 LiteSVM real-program tests.
   Findings in docs/FUZZ_FINDINGS.md.
+- [x] Reproducible build: `solana-verify build` succeeds deterministically
+  (hashes in docs/DEPLOYMENT.md). On-chain binary sync pending next funded
+  redeploy.
 - [ ] Trident on-chain fuzz (see `tests/fuzz/README.md` for the runbook).
-- [ ] Verifiable build via `solana-verify`.
 
 ## Guarantees
 
