@@ -17,7 +17,7 @@ use solana_system_interface::{instruction as sys_ix, program as sys_prog};
 use solana_transaction::Transaction;
 use std::str::FromStr;
 
-pub const PROGRAM_ID_STR: &str = "61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE";
+pub const PROGRAM_ID_STR: &str = "7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn";
 pub const TOKEN_PROGRAM_ID: Address =
     solana_address::address!("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 pub const TOKEN_2022_ID: Address =

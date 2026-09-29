@@ -1,4 +1,7 @@
 //! Smoke: load the real program, create a mint, initialize config.
+#[path = "common/mod.rs"]
+mod common;
+
 use litesvm::LiteSVM;
 use solana_address::Address;
 use solana_clock::Clock;
@@ -99,8 +102,7 @@ mod solana_sysvar {
 
 const PROGRAM_BYTES: &[u8] = include_bytes!("../../target/deploy/escrowl.so");
 
-fn sighash(name: &str) -> [u8; 8] {
-    // Single source of truth: the anchor-generated IDL (snake_case names).
+fn sighash(name: &str) -> [u8; 8] {    // Single source of truth: the anchor-generated IDL (snake_case names).
     static IDL: &str = include_str!("../../sdk/idl/escrowl.json");
     let idl: serde_json::Value = serde_json::from_str(IDL).unwrap();
     let ix = idl["instructions"]
@@ -118,11 +120,25 @@ fn sighash(name: &str) -> [u8; 8] {
 }
 
 #[test]
+fn harness_program_id_matches_idl() {
+    // Guards the 4100-class failure: the LiteSVM harness must deploy at the
+    // address anchor generated into the IDL (which comes from declare_id!).
+    // Single source of truth — no second hardcoded copy.
+    static IDL: &str = include_str!("../../sdk/idl/escrowl.json");
+    let idl: serde_json::Value = serde_json::from_str(IDL).unwrap();
+    let from_idl = idl["address"].as_str().unwrap();
+    assert_eq!(
+        from_idl, crate::common::PROGRAM_ID_STR,
+        "harness ID drifted from IDL — update PROGRAM_ID_STR"
+    );
+}
+
+#[test]
 fn smoke_load_and_init_config() {
     use std::str::FromStr;
     // Must match declare_id! in programs/escrowl/src/lib.rs (Anchor checks).
     let program_id =
-        Address::from_str("61YPTaqaVeh4dywJEFm21jLaRhHRqeiEiG1gGNox3zwE").unwrap();
+        Address::from_str("7gAg52zZVPa4s5C2pdzZXoT7xJsyXhZ7SfJYkPQxujCn").unwrap();
     let mut svm = LiteSVM::new().with_default_programs().with_sysvars();
     svm.add_program(program_id, PROGRAM_BYTES);
 
